@@ -1,11 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:to_study/api/movies_get.dart';
-import 'package:to_study/models/short_response_model.dart';
+import 'package:to_study/app/models/short_response_model.dart';
+import 'package:to_study/app/pages/home/repositories/home_repository.dart';
 
-part 'short_event.dart';
-part 'short_state.dart';
+
+part 'home_event.dart';
+part 'home_state.dart';
 
 class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
   List<ShortResponse> copyOfResponseToUpdateState = [];

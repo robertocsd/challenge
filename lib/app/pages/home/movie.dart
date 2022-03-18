@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:to_study/app/pages/home/bloc/short_bloc.dart';
+import 'package:to_study/app/pages/home/bloc/home_bloc.dart';
 
 
 class MoviePage extends StatefulWidget {

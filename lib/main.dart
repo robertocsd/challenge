@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_study/app/pages/bloc/short_bloc.dart';
+import 'package:to_study/app/pages/home/bloc/home_bloc.dart';
+
 import 'package:to_study/app/pages/home/movie.dart';
 
 void main() {

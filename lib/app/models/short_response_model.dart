@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final shortResponse = shortResponseFromMap(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -13,11 +9,6 @@ class ShortResponse {
 
   final String? alias;
   final Links? links;
-
-  // factory ShortResponse.fromJson(String str) => ShortResponse.fromMap(json.decode(str));
-
-  // String toJson() => json.encode(toMap());
-
   factory ShortResponse.fromJson(Map<String, dynamic> json) => ShortResponse(
         alias: json["alias"],
         links: json["_links"] == null ? null : Links.fromMap(json["_links"]),
