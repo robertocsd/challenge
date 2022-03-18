@@ -9,8 +9,8 @@ part 'short_state.dart';
 
 class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
   List<ShortResponse> copyOfResponseToUpdateState = [];
-        RegExp regGex = RegExp(
-          r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+  RegExp regGex = RegExp(
+      r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
   final Repository repository;
   ShortBloc([Repository? repository])
       : repository = repository ??= Repository(),
@@ -30,23 +30,22 @@ class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
   void _onGetShortURLEvent(
       OnGetShortURLEvent event, Emitter<ShortenedState> emit) async {
     try {
-
       if (regGex.hasMatch(state.model.urlToBeShorted!)) {
+        emit(LoadingState(state.model));
         ShortResponse res =
             await repository.getShortURL(state.model.urlToBeShorted!);
 
         copyOfResponseToUpdateState.add(res);
 
-
         emit(UrlSettedState(state.model.copyWith(
           shortList: copyOfResponseToUpdateState,
         )));
-    
       } else {
         emit(ErrorInputURLState(state.model.copyWith(inputUrlError: true)));
       }
     } catch (e) {
-      print(e);
+      //TODO EXCEPCION STATE
+
     }
   }
 }

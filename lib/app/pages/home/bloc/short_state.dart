@@ -1,7 +1,7 @@
 part of 'short_bloc.dart';
 
 @immutable
-abstract class ShortenedState  {
+abstract class ShortenedState {
   final Model model;
 
   const ShortenedState(this.model);
@@ -17,8 +17,8 @@ class UrlSettedState extends ShortenedState {
   const UrlSettedState(Model model) : super(model);
 }
 
-class LoaginShortedState extends ShortenedState {
-  const LoaginShortedState(Model model) : super(model);
+class LoadingState extends ShortenedState {
+  const LoadingState(Model model) : super(model);
 }
 
 class ErrorInputURLState extends UrlSettedState {
@@ -30,24 +30,21 @@ class Model extends Equatable {
   final List<ShortResponse> shortList;
   final bool? inputUrlError;
 
-  const Model( {
-    this.urlToBeShorted,
-    this.shortList = const [],
-    this.inputUrlError = false
-  });
+  const Model(
+      {this.urlToBeShorted,
+      this.shortList = const [],
+      this.inputUrlError = false});
 
-  Model copyWith({String? urlToBeShorted, List<ShortResponse>? shortList, bool? inputUrlError}) 
-  => Model(
+  Model copyWith(
+          {String? urlToBeShorted,
+          List<ShortResponse>? shortList,
+          bool? inputUrlError}) =>
+      Model(
         urlToBeShorted: urlToBeShorted ?? this.urlToBeShorted,
         shortList: shortList ?? this.shortList,
         inputUrlError: inputUrlError ?? this.inputUrlError,
-
       );
 
   @override
-  List<Object?> get props => [
-    urlToBeShorted,
-    shortList,
-    inputUrlError
-    ];
+  List<Object?> get props => [urlToBeShorted, shortList, inputUrlError];
 }
