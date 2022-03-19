@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:to_study/app/models/short_response_model.dart';
 
-
 class Repository {
   Future<ShortResponse> getShortURL(String url) async {
     try {

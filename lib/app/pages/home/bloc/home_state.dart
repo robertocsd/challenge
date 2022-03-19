@@ -1,11 +1,12 @@
 part of 'home_bloc.dart';
 
 @immutable
-abstract class ShortenedState {
+abstract class ShortenedState extends Equatable {
   final Model model;
 
   const ShortenedState(this.model);
 
+  @override
   List<Object> get props => [model];
 }
 
@@ -15,6 +16,10 @@ class ShortInitialState extends ShortenedState {
 
 class UrlSettedState extends ShortenedState {
   const UrlSettedState(Model model) : super(model);
+}
+
+class UrlGettedState extends ShortenedState {
+  const UrlGettedState(Model model) : super(model);
 }
 
 class LoadingState extends ShortenedState {
@@ -36,11 +41,11 @@ class Model extends Equatable {
       this.inputUrlError = false});
 
   Model copyWith(
-          {String? urlToBeShorted,
+          { String? urlToBeShorted,
           List<ShortResponse>? shortList,
           bool? inputUrlError}) =>
       Model(
-        urlToBeShorted: urlToBeShorted ?? this.urlToBeShorted,
+        urlToBeShorted: urlToBeShorted,
         shortList: shortList ?? this.shortList,
         inputUrlError: inputUrlError ?? this.inputUrlError,
       );
