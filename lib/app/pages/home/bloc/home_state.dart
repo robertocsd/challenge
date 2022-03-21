@@ -41,7 +41,7 @@ class Model extends Equatable {
       this.inputUrlError = false});
 
   Model copyWith(
-          { String? urlToBeShorted,
+          {String? urlToBeShorted,
           List<ShortResponse>? shortList,
           bool? inputUrlError}) =>
       Model(

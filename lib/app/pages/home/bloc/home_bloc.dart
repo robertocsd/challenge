@@ -40,17 +40,14 @@ class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
         copyOfResponseToUpdateState.add(res);
 
         emit(UrlGettedState(state.model.copyWith(
-          shortList: copyOfResponseToUpdateState,
-        )));
+            shortList: copyOfResponseToUpdateState,
+            urlToBeShorted: state.model.urlToBeShorted)));
       } else {
-        emit(ErrorInputURLState(
-            state.model.copyWith(inputUrlError: true)));
+        emit(ErrorInputURLState(state.model.copyWith(
+            inputUrlError: true, urlToBeShorted: state.model.urlToBeShorted)));
       }
     } catch (e) {
-      print('NULL CHECK OPERATOR $e');
-
-      //TODO EXCEPCION STATE
-
+      throw Exception(e);
     }
   }
 }
