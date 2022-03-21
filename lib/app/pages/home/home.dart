@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -28,36 +29,43 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(top: 90),
             child: Column(
               children: [
-              Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         width: width * 0.8,
                         height: height * 0.15,
-                        child:InputHome(onWrite: (data){
-                          blocHome.add(OnGettingShortURL(data));
-                        },
-                        hintText: texts.writeYourURL,
-                        onError: state is ErrorInputURLState
-                                ? texts.notAValidUrl
-                                : null,
-                              )
-                      ),
-                      state is LoadingState
-                          ?  Padding(
-                              padding: Platform.isAndroid ? const EdgeInsets.only(bottom: 30, left: 5, right: 30) : const EdgeInsets.only(bottom: 50, left: 5, right: 30),
-                              child: const CupertinoActivityIndicator())
-                          : Padding(
-                            padding: !Platform.isAndroid ? const EdgeInsets.only(bottom:70) : const EdgeInsets.only(bottom:40),
+                        child: InputHome(
+                          onWrite: (data) {
+                            blocHome.add(OnGettingShortURL(data));
+                          },
+                          hintText: texts.writeYourURL,
+                          onError: state is ErrorInputURLState
+                              ? texts.notAValidUrl
+                              : null,
+                        )),
+                    state is LoadingState
+                        ? Padding(
+                            padding: Platform.isAndroid
+                                ? const EdgeInsets.only(
+                                    bottom: 30, left: 5, right: 30)
+                                : const EdgeInsets.only(
+                                    bottom: 50, left: 5, right: 30),
+                            child: const CupertinoActivityIndicator())
+                        : Padding(
+                            padding: !Platform.isAndroid
+                                ? const EdgeInsets.only(bottom: 70)
+                                : const EdgeInsets.only(bottom: 40),
                             child: SendButton(
-                                onPress: () {
-                                  blocHome.add(OnGetShortURLEvent());
-                                }, ),
+                              onPress: () {
+                                blocHome.add(OnGetShortURLEvent());
+                              },
+                            ),
                           ),
-                    ],
-                  ),
-             Padding(
+                  ],
+                ),
+                Padding(
                   padding: const EdgeInsets.only(right: 180, top: 5),
                   child: Text(
                     texts.recentlyShorted,
@@ -72,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.symmetric(vertical: 100),
                             child: Text(texts.writeSomethingtoStart))
                         : SizedBox(
+                            key: const Key('List'),
                             height: height * 0.6,
                             width: double.infinity,
                             child: ListView.builder(
