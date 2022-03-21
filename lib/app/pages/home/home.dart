@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_study/app/pages/home/bloc/home_bloc.dart';
-import 'package:to_study/app/pages/home/widgets/send_button.dart';
+import 'package:to_study/app/pages/home/widgets/buttons/send_button.dart';
+import 'package:to_study/app/pages/home/widgets/inputs/input_home.dart';
 import 'package:to_study/app/utils/texts.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,46 +28,37 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(top: 90),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      width: width * 0.8,
-                      child: TextField(
-                        onChanged: (data) {
+              Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        width: width * 0.8,
+                        height: height * 0.15,
+                        child:InputHome(onWrite: (data){
                           blocHome.add(OnGettingShortURL(data));
                         },
-                        decoration: InputDecoration(
-                          errorText: state is ErrorInputURLState
-                              ? texts.notAValidUrl
-                              : null,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          filled: true,
-                          hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 95, 95, 95)),
-                          hintText: texts.writeYourURL,
-                          fillColor: const Color.fromARGB(255, 214, 207, 207),
-                        ),
+                        hintText: texts.writeYourURL,
+                        onError: state is ErrorInputURLState
+                                ? texts.notAValidUrl
+                                : null,
+                              )
                       ),
-                    ),
-                    state is LoadingState
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            child: const CupertinoActivityIndicator())
-                        : SendButton(
-                            onPress: () {
-                              blocHome.add(OnGetShortURLEvent());
-                            },
+                      state is LoadingState
+                          ?  Padding(
+                              padding: Platform.isAndroid ? const EdgeInsets.only(bottom: 30, left: 5, right: 30) : const EdgeInsets.only(bottom: 50, left: 5, right: 30),
+                              child: const CupertinoActivityIndicator())
+                          : Padding(
+                            padding: !Platform.isAndroid ? const EdgeInsets.only(bottom:70) : const EdgeInsets.only(bottom:40),
+                            child: SendButton(
+                                onPress: () {
+                                  blocHome.add(OnGetShortURLEvent());
+                                }, ),
                           ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.only(right: 180, top: 50),
+                    ],
+                  ),
+             Padding(
+                  padding: const EdgeInsets.only(right: 180, top: 5),
                   child: Text(
                     texts.recentlyShorted,
                     style: const TextStyle(
@@ -78,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.symmetric(vertical: 100),
                             child: Text(texts.writeSomethingtoStart))
                         : SizedBox(
-                            height: height * 0.65,
+                            height: height * 0.6,
                             width: double.infinity,
                             child: ListView.builder(
                               shrinkWrap: true,
