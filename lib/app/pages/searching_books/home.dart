@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_study/app/pages/home/bloc/home_bloc.dart';
-import 'package:to_study/app/pages/home/widgets/buttons/send_button.dart';
-import 'package:to_study/app/pages/home/widgets/inputs/input_home.dart';
+
+import 'package:to_study/app/pages/searching_books/bloc/home_bloc.dart';
+import 'package:to_study/app/pages/searching_books/childrens/book_info.dart';
+import 'package:to_study/app/pages/searching_books/widgets/buttons/send_button.dart';
+import 'package:to_study/app/pages/searching_books/widgets/inputs/generic_input.dart';
 import 'package:to_study/app/utils/texts.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         width: width * 0.8,
                         height: height * 0.15,
-                        child: InputHome(
+                        child: GenerinInputWidget(
                           onWrite: (data) {
                             blocHome.add(OnGettingShortURL(data));
                           },
@@ -79,24 +81,37 @@ class _HomePageState extends State<HomePage> {
                         ? Container(
                             padding: const EdgeInsets.symmetric(vertical: 100),
                             child: Text(texts.writeSomethingtoStart))
-                        : SizedBox(
-                            key: const Key('List'),
-                            height: height * 0.6,
-                            width: double.infinity,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.model.shortList.isNotEmpty
-                                  ? state.model.shortList.length
-                                  : 0,
-                              itemBuilder: (context, int index) {
-                                return ListTile(
-                                    title: Text(
-                                        state.model.shortList[index].alias!),
-                                    subtitle: Text(state
-                                        .model.shortList[index].links!.self!));
-                              },
-                            ),
-                          );
+                        : state.model.shortList.isEmpty == true
+                            ? Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: height * 0.2,
+                                    horizontal: width * 0.15),
+                                child: Text(AppTexts().noResults))
+                            : SizedBox(
+                                key: const Key('List'),
+                                height: height * 0.6,
+                                width: double.infinity,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: state.model.shortList.isNotEmpty
+                                      ? state.model.shortList.length
+                                      : 0,
+                                  itemBuilder: (context, int index) {
+                                    return ListTile(
+                                      onTap: (){
+                                        showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return const BookInfo();
+                    });
+                                      },
+                                        title: Text(
+                                            state.model.shortList[index].title),
+                                        subtitle: Text(state.model
+                                            .shortList[index].authorName[0]));
+                                  },
+                                ),
+                              );
                   },
                 ),
               ],

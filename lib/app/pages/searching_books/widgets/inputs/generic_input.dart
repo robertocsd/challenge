@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 
-class InputHome extends StatelessWidget {
+class GenerinInputWidget extends StatelessWidget {
   final Function(String) onWrite;
   final String? onError;
   final String? hintText;
-  const InputHome(
-      {Key? key, required this.onWrite, this.onError, this.hintText})
+  final String? keyboardType;
+  final String? value;
+  const GenerinInputWidget(
+      {Key? key,
+      required this.onWrite,
+      this.onError,
+      this.hintText,
+      this.keyboardType,
+      this.value})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLength: keyboardType == 'number' ? 10 : null,
+     
       key: const Key('Input'),
       onChanged: (data) {
         onWrite(data);
       },
+      keyboardType: keyboardType == 'number'
+          ? TextInputType.number
+          : keyboardType == 'text'
+              ? TextInputType.text
+              : keyboardType == 'email'
+                  ? TextInputType.emailAddress
+                  : TextInputType.text,
       decoration: InputDecoration(
         errorText: onError,
         border: OutlineInputBorder(

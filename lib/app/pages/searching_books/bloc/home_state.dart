@@ -32,7 +32,7 @@ class ErrorInputURLState extends UrlSettedState {
 
 class Model extends Equatable {
   final String? urlToBeShorted;
-  final List<ShortResponse> shortList;
+  final List<Doc> shortList;
   final bool? inputUrlError;
 
   const Model(
@@ -42,7 +42,7 @@ class Model extends Equatable {
 
   Model copyWith(
           {String? urlToBeShorted,
-          List<ShortResponse>? shortList,
+          List<Doc>? shortList,
           bool? inputUrlError}) =>
       Model(
         urlToBeShorted: urlToBeShorted,

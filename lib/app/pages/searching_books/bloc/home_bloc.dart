@@ -1,16 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:to_study/app/models/short_response_model.dart';
-import 'package:to_study/app/pages/home/repositories/home_repository.dart';
+import 'package:to_study/app/models/books_response_model.dart';
+import 'package:to_study/app/pages/searching_books/repositories/home_repository.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
-  List<ShortResponse> copyOfResponseToUpdateState = [];
-  RegExp regGex = RegExp(
-      r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
   late Repository repository;
 
   ShortBloc({Repository? repository}) : super(initialState) {
@@ -33,19 +30,12 @@ class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
     emit(LoadingState(state.model));
 
     try {
-      if (regGex.hasMatch(state.model.urlToBeShorted!)) {
-        ShortResponse res =
-            await repository.getShortURL(state.model.urlToBeShorted!);
+      BooksResponse res =
+          await repository.getShortURL(state.model.urlToBeShorted!);
 
-        copyOfResponseToUpdateState.add(res);
 
-        emit(UrlGettedState(state.model.copyWith(
-            shortList: copyOfResponseToUpdateState,
-            urlToBeShorted: state.model.urlToBeShorted)));
-      } else {
-        emit(ErrorInputURLState(state.model.copyWith(
-            inputUrlError: true, urlToBeShorted: state.model.urlToBeShorted)));
-      }
+      emit(UrlGettedState(state.model.copyWith(
+          shortList: res.docs, urlToBeShorted: state.model.urlToBeShorted)));
     } catch (e) {
       throw Exception(e);
     }
