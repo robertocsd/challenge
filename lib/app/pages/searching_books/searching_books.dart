@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_study/app/pages/searching_books/bloc/home_bloc.dart';
 import 'package:to_study/app/pages/searching_books/widgets/buttons/send_button.dart';
 import 'package:to_study/app/pages/searching_books/widgets/inputs/generic_input.dart';
-import 'package:to_study/app/utils/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final texts = AppTexts();
     final blocHome = BlocProvider.of<ShortBloc>(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -41,11 +39,11 @@ class _HomePageState extends State<HomePage> {
                         height: height * 0.15,
                         child: GenerinInputWidget(
                           onWrite: (data) {
-                            blocHome.add(OnGettingShortURL(data));
+                            blocHome.add(OnGettingBook(data));
                           },
-                          hintText: texts.writeYourURL,
+                          hintText: 'Escribe el libro que deseas buscar',
                           onError: state is ErrorInputURLState
-                              ? texts.notAValidUrl
+                              ? 'No es valido'
                               : null,
                         )),
                     state is LoadingState
@@ -62,17 +60,17 @@ class _HomePageState extends State<HomePage> {
                                 : const EdgeInsets.only(bottom: 40),
                             child: SendButton(
                               onPress: () {
-                                blocHome.add(OnGetShortURLEvent());
+                                blocHome.add(OnGetBook());
                               },
                             ),
                           ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 180, top: 5),
+                const Padding(
+                  padding: EdgeInsets.only(right: 100, top: 5),
                   child: Text(
-                    texts.recentlyShorted,
-                    style: const TextStyle(
+                    'Libros: Escribe y ponte a buscar',
+                    style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ),
@@ -81,13 +79,14 @@ class _HomePageState extends State<HomePage> {
                     return state is ShortInitialState
                         ? Container(
                             padding: const EdgeInsets.symmetric(vertical: 100),
-                            child: Text(texts.writeSomethingtoStart))
-                        : state.model.shortList.isEmpty == true
+                            child: const Text('Haz algo!'))
+                        : state.model.shortList.isEmpty == true &&
+                                state is UrlGettedState 
                             ? Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: height * 0.2,
                                     horizontal: width * 0.15),
-                                child: Text(AppTexts().noResults))
+                                child: const Text('No hemos encontrado ningún resultado, lo sentimos mucho'))
                             : SizedBox(
                                 key: const Key('List'),
                                 height: height * 0.6,

@@ -12,21 +12,21 @@ class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
 
   ShortBloc({Repository? repository}) : super(initialState) {
     this.repository = repository ?? Repository();
-    on<OnGettingShortURL>(_onGeetingShorUrl);
-    on<OnGetShortURLEvent>(_onGetShortURLEvent);
+    on<OnGettingBook>(_onGeetingShorUrl);
+    on<OnGetBook>(_onGetShortURLEvent);
   }
 
   static ShortenedState get initialState =>
       const ShortInitialState(Model(urlToBeShorted: ''));
 
   void _onGeetingShorUrl(
-      OnGettingShortURL event, Emitter<ShortenedState> emit) {
+      OnGettingBook event, Emitter<ShortenedState> emit) {
     emit(
         UrlSettedState(state.model.copyWith(urlToBeShorted: event.urlToShort)));
   }
 
   void _onGetShortURLEvent(
-      OnGetShortURLEvent event, Emitter<ShortenedState> emit) async {
+      OnGetBook event, Emitter<ShortenedState> emit) async {
     emit(LoadingState(state.model));
 
     try {

@@ -6,10 +6,10 @@ abstract class ShortenedEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OnGettingShortURL extends ShortenedEvent {
+class OnGettingBook extends ShortenedEvent {
   final String urlToShort;
 
-  OnGettingShortURL(this.urlToShort);
+  OnGettingBook(this.urlToShort);
 }
 
-class OnGetShortURLEvent extends ShortenedEvent {}
+class OnGetBook extends ShortenedEvent {}
