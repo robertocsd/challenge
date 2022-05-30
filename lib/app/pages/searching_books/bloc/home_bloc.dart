@@ -33,7 +33,6 @@ class ShortBloc extends Bloc<ShortenedEvent, ShortenedState> {
       BooksResponse res =
           await repository.getShortURL(state.model.urlToBeShorted!);
 
-
       emit(UrlGettedState(state.model.copyWith(
           shortList: res.docs, urlToBeShorted: state.model.urlToBeShorted)));
     } catch (e) {

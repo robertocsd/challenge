@@ -7,10 +7,8 @@ abstract class MenuEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class OnChangePage extends MenuEvent {
   final int pageSelected;
 
   const OnChangePage(this.pageSelected);
-
 }

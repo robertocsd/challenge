@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 class NavBarCustom extends StatelessWidget {
   final List<NavBarCustomChildren>? children;
 
-   // ignore: use_key_in_widget_constructors
-   const NavBarCustom({ this.children});
+  // ignore: use_key_in_widget_constructors
+  const NavBarCustom({this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +50,8 @@ class NavBarCustomChildren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-        child: SvgPicture.asset(path!, color: color, width: 22.0, height: 22.0)
-        );
+        onTap: onTap,
+        child:
+            SvgPicture.asset(path!, color: color, width: 22.0, height: 22.0));
   }
 }

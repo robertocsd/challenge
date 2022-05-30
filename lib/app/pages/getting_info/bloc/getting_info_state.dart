@@ -36,22 +36,20 @@ class Model extends Equatable {
   final bool? emailError;
   final String? sexo;
   final int? age;
-  const Model({
-    this.emailError = true,
-    this.email = '',
-    this.firstName = '',
-    this.phoneNumber = '',
-    this.lastNames = '',
-    this.firstNameError = true,
-    this.lastNameError= true ,
-    this.phoneNumberError = true,
-    this.bornDate ,
-    this.bornDateError = true,
-    this.allDataIsOk = false,
-    this.sexo = 'Femenino',
-    this.age = 0
-
-  });
+  const Model(
+      {this.emailError = true,
+      this.email = '',
+      this.firstName = '',
+      this.phoneNumber = '',
+      this.lastNames = '',
+      this.firstNameError = true,
+      this.lastNameError = true,
+      this.phoneNumberError = true,
+      this.bornDate,
+      this.bornDateError = true,
+      this.allDataIsOk = false,
+      this.sexo = 'Femenino',
+      this.age = 0});
 
   Model copyWith(
           {String? firstName,
@@ -68,20 +66,19 @@ class Model extends Equatable {
           int? age,
           bool? allDataIsOk}) =>
       Model(
-        firstName: firstName ?? this.firstName,
-        lastNames: lastNames ?? this.lastNames,
-        firstNameError: firstNameError ?? this.firstNameError,
-        lastNameError: lastNameError ?? this.lastNameError,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        phoneNumberError: phoneNumberError ?? this.phoneNumberError,
-        bornDate: bornDate ?? this.bornDate,
-        bornDateError: bornDateError ?? this.bornDateError,
-        allDataIsOk: allDataIsOk ?? this.allDataIsOk,
-        email: email ?? this.email,
-        age: age ?? this.age,
-        sexo: sexo ?? this.sexo,
-        emailError: emailError ?? this.emailError
-      );
+          firstName: firstName ?? this.firstName,
+          lastNames: lastNames ?? this.lastNames,
+          firstNameError: firstNameError ?? this.firstNameError,
+          lastNameError: lastNameError ?? this.lastNameError,
+          phoneNumber: phoneNumber ?? this.phoneNumber,
+          phoneNumberError: phoneNumberError ?? this.phoneNumberError,
+          bornDate: bornDate ?? this.bornDate,
+          bornDateError: bornDateError ?? this.bornDateError,
+          allDataIsOk: allDataIsOk ?? this.allDataIsOk,
+          email: email ?? this.email,
+          age: age ?? this.age,
+          sexo: sexo ?? this.sexo,
+          emailError: emailError ?? this.emailError);
 
   @override
   List<Object?> get props => [

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:to_study/app/pages/searching_books/bloc/home_bloc.dart';
-import 'package:to_study/app/pages/searching_books/childrens/book_info.dart';
 import 'package:to_study/app/pages/searching_books/widgets/buttons/send_button.dart';
 import 'package:to_study/app/pages/searching_books/widgets/inputs/generic_input.dart';
 import 'package:to_study/app/utils/texts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      
       resizeToAvoidBottomInset: false,
       body: BlocBuilder<ShortBloc, ShortenedState>(
         builder: (context, state) {
@@ -98,13 +99,10 @@ class _HomePageState extends State<HomePage> {
                                       : 0,
                                   itemBuilder: (context, int index) {
                                     return ListTile(
-                                      onTap: (){
-                                        showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return const BookInfo();
-                    });
-                                      },
+                                        onTap: () {
+                                 
+                                              _launchUrl(state.model.shortList[index].key);
+                                        },
                                         title: Text(
                                             state.model.shortList[index].title),
                                         subtitle: Text(state.model
@@ -120,5 +118,9 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+
   }
+   void _launchUrl(String book) async {
+  if (!await launchUrl(Uri.parse('https://openlibrary.org/' + book))) throw 'Could not launch $book';
+}
 }

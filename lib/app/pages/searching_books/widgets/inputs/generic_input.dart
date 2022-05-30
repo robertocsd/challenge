@@ -6,20 +6,21 @@ class GenerinInputWidget extends StatelessWidget {
   final String? hintText;
   final String? keyboardType;
   final String? value;
+  final String? initialValue;
   const GenerinInputWidget(
       {Key? key,
       required this.onWrite,
       this.onError,
       this.hintText,
       this.keyboardType,
-      this.value})
+      this.value, this.initialValue})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      initialValue:initialValue == '' ? null : initialValue,
       maxLength: keyboardType == 'number' ? 10 : null,
-     
       key: const Key('Input'),
       onChanged: (data) {
         onWrite(data);

@@ -44,5 +44,3 @@ class GettingSexoEvent extends GettingInfoEvent {
 }
 
 class CheckingData extends GettingInfoEvent {}
-
-
